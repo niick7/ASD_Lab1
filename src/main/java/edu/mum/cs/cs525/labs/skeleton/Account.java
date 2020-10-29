@@ -11,6 +11,8 @@ public class Account {
 
 	private final List<AccountEntry> entryList = new ArrayList<>();
 
+	public AccountType accountType;
+
 	public Account(String accountNumber) {
 		this.accountNumber = accountNumber;
 	}
@@ -68,4 +70,19 @@ public class Account {
 		return entryList;
 	}
 
+	public AccountType getAccountType() {
+		return this.accountType;
+	}
+
+	public void setAccountType(AccountType accountType) {
+		this.accountType = accountType;
+	}
+
+	public void addInterest() {
+		if (!getAccountType().equals(null)){
+			double interest = getAccountType().computeInterest(getBalance());
+			AccountEntry entry = new AccountEntry(interest, "Interest", getAccountNumber(), getCustomer().getName());
+			entryList.add(entry);
+		}
+	}
 }

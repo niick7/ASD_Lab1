@@ -7,8 +7,11 @@ public class Application {
 		AccountService accountService = new AccountServiceImpl();
 
 		// create 2 accounts;
-		accountService.createAccount("1263862", "Frank Brown");
-		accountService.createAccount("4253892", "John Doe");
+		Account acc1 = accountService.createAccount("1263862", "Frank Brown");
+		acc1.setAccountType(new CheckingAccount());
+
+		Account acc2 = accountService.createAccount("4253892", "John Doe");
+		acc2.setAccountType(new SavingAccount());
 		// use account 1;
 		accountService.deposit("1263862", 240);
 		accountService.deposit("1263862", 529);
@@ -17,6 +20,7 @@ public class Application {
 		accountService.deposit("4253892", 12450);
 		accountService.transferFunds("4253892", "1263862", 100, "payment of invoice 10232");
 		// show balances
+		accountService.addInterestToAllAccounts();
 
 		for (Account account : accountService.getAllAccounts()) {
 			Customer customer = account.getCustomer();
